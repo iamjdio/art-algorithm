@@ -1,32 +1,57 @@
-float sunRadius = 50;  // Radius of the Sun
-float[] planetRadii = {100, 150, 200, 250, 300};  // Orbital radii of planets
-float[] planetSpeeds = {0.01, 0.008, 0.006, 0.004, 0.003};  // Orbital speeds of planets
-float[] planetSizes = {10, 15, 20, 18, 12};  // Sizes of the planets
-float[] angles = {0, 1.2, 2.5, 3.8, 5.0};  // Initial angles of the planets
-color[] planetColors = {color(200, 200, 255), color(255, 200, 0), color(150, 150, 255), color(255, 100, 100), color(255, 255, 0)};  // Colors of the planets
+float sunRadius = 50;  // rayon du soleil
+float[] planetRadii = {100, 150, 200, 250, 300};  // Rayons orbitaux des planètes
+float[] planetSpeeds = {0.01, 0.008, 0.006, 0.004, 0.003};  // vitesse orbitale des planets
+float[] planetSizes = {10, 15, 20, 17, 30};  // taille des planetes
+float[] angles = {0, 1.2, 2.5, 3.8, 5.0};  // angle initial
+color[] planetColors = {color(200, 200, 255), color(255, 200, 0), color(150, 150, 255), color(255, 100, 100), color(255, 255, 0)};  // couleur
 
 void setup() {
-  size(screenWidth, screenHeight);
+  size(800,800);
   noStroke();
+  //blendMode(ADD);
+  //frameRate(3);
 }
 
 void draw() {
-  background(0);  // Black background representing space
-  translate(width / 2, height / 2);  // Move the origin to the center of the screen
+  background(0); 
 
-  // Draw the Sun at the center
-  fill(255, 204, 0);  // Yellow color for the Sun
-  ellipse(0, 0, sunRadius * 2, sunRadius * 2);
-  
-  // Loop through each planet and draw them
-  for (int i = 0; i < planetRadii.length; i++) {
-    float x = planetRadii[i] * cos(angles[i]);  // X position based on angle and radius
-    float y = planetRadii[i] * sin(angles[i]);  // Y position based on angle and radius
+  float i = 1;
+  float dist = 40;
+  while ( i < 60) {
+  i += 1;
+  //println(i);
+  float j = 1;
+  while (j < 60) {
+    //print(j + " ");
+    j += 1;
+    float posX = i * dist;
+    float posY = j * dist;    
+
+    float col = 255;
+    float Sz = random(2);
+    fill(col, col, col);
+    ellipse(random(posX), random(posY), Sz, Sz);
     
-    fill(planetColors[i]);  // Set the planet color
-    ellipse(x, y, planetSizes[i], planetSizes[i]);  // Draw the planet
-    
-    // Update the angle to simulate the orbit
-    angles[i] += planetSpeeds[i];  // Increase the angle for the next frame
   }
 }
+  
+  translate(width / 2, height / 2);
+
+  // Dessine le soleil au centre
+  fill(255, 204, 0);  
+  ellipse(0, 0, sunRadius * 2, sunRadius * 2);
+  
+  // boucle pour dessiner chaque plqnete
+  for (int k = 0; k < planetRadii.length; k++) {
+    float x = planetRadii[k] * cos(angles[k]); 
+    float y = planetRadii[k] * sin(angles[k]); 
+    
+    fill(planetColors[k]); 
+    ellipse(x, y, planetSizes[k], planetSizes[k]); 
+    
+    // deplacement via l'augmentation de l'angle par la vitesse
+    angles[k] += planetSpeeds[k];
+  }
+  
+}
+//save("img.png");
